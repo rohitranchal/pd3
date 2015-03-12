@@ -13,7 +13,7 @@ var ab_lib = 'resources/lib';
 var ab_arg = ab_path + ':./' + ab_lib + '/*:.';
 var ab_class = 'edu.purdue.absoa.Server';
 var ab_port = 5555;
-var req_data = 'ab.user.name';
+var req_data = 'ab.user.email';
 
 /* GET home page. */
 router.get('/', function(req, res) {
