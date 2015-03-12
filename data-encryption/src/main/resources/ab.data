@@ -1,0 +1,7 @@
+ab.user.name = Alice
+ab.user.email = alice@user.com
+ab.user.shipping.address = 305 Univ St, West Lafayette, IN, US
+ab.user.creditcard = 1234 5678 4321 8765
+ab.user.payment.type = Visa
+ab.user.shipping.preference = 1 day
+ab.user.email = alice@user.com
