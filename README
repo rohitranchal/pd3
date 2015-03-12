@@ -1,6 +1,5 @@
 ## Instructions for AB projects
-# Each AB project has experiments folder which has different policy ABs 
-
+# Each AB project has experiments folder which has different policy ABs and the required libs
 cd AB-code-Tamper-Resistance
 mvn clean install
 mvn eclipse:eclipse
@@ -11,9 +10,14 @@ java -cp target/active_bundle-1.0-SNAPSHOT.jar:./target/lib/*:. edu.purdue.absoa
 ## Instructions for node services
 cd scenario/sample
 npm start
-localhost:3000
+localhost:3000/test
 
-Instructions for Thrift
+## Instructions for Thrift
 cd thrift
 thrift -out . --gen java ActiveBundle.thrift
 thrift -out . --gen js:node ActiveBundle.thrift
+
+## Instructions for AB data encryption
+mvn clean install
+mvn eclipse:eclipse
+# import in eclipse to run
