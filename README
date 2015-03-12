@@ -1,0 +1,50 @@
+#For starting a new project, this will create a folder named active_bundle
+
+mvn archetype:generate -DgroupId=edu.purdue.absoa -DartifactId=active_bundle -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=false
+
+mvn eclipse:eclipse
+
+mvn package
+
+mvn clean install
+
+java -cp target/active_bundle-1.0-SNAPSHOT.jar edu.purdue.cs.absoa.MyHello
+
+#For not generating gen-java 
+Executes thrift -out . --gen java item.thrift to compile.
+
+Use the -out . flag to not create the gen-java directory. If not, it will create java files in gen-java/me/zhengdong/thrift
+
+#Create a jar from eclipse
+Use import and select the file which has main and the dependencies, libraries etc
+
+#Create a keystore and keypair
+keytool -genkeypair -alias service1 -keystore abstore -storepass absoa1 -keypass absoa1 -keyalg RSA
+keytool -list -v -keystore abstore.ks //password - absoa1
+
+#Creating a CA and signing using CA root cert
+#Generate CA's private key and root cert
+openssl req -x509 -newkey rsa:1024 -keyout ABCAKey.pem -out ABCACert.pem -days 3650
+#Generate the entity's key to be singed by CA's root cert
+keytool -genkeypair -alias service1 -keystore abstore -storepass absoa1 -keypass absoa1 -keyalg RSA
+#Generate the certificate requests for the entity
+keytool -certreq -keystore abstore.ks -storepass absoa1 -alias service1 -file service1.csr
+#Generate x509 cert signed by CA
+openssl x509 -req -in service1.csr -CA ABCACert.pem -CAkey ABCAKey.pem -CAcreateserial -out service1.pem -days 3650
+#service1.pem file is in plain text. To import this signed cert into keystore convert them into binary (DER) format
+openssl x509 -outform DER -in service1.pem -out service1.cert
+#convert CA cert to DER
+openssl x509 -outform DER -in ABCACert.pem -out ABCACert.cert
+#import the CA cert into keystore
+keytool -import -file ABCACert.cert -keystore abstore.ks -storepass absoa1 -alias ab_ca
+#import the signed service cert into keystore
+keytool -import -file service1.cert -keystore abstore.ks -storepass absoa1 -alias service1
+
+#Deploy the interceptor first
+copy it to proper place
+
+#To run the service
+cd scenarios/simple_service/client/service
+mvn clean install
+cd scripts
+./start // copies service to server and runs the server
