@@ -1,6 +1,0 @@
-ab.user.name = Service 1, Shopping, Seller, Shipping, Payment
-ab.user.shipping.address = Service 1, Shipping
-ab.user.creditcard = Service 1, Payment
-ab.user.payment.type = Service 1, Shopping
-ab.user.shipping.preference = Service 1, Seller
-ab.user.email = Service 1, Shopping

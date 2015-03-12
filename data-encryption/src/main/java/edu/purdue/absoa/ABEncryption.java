@@ -29,14 +29,22 @@ public class ABEncryption {
 		}		
 	}
 	
-	private static String valueEncryption(String request, byte[] secret) {	
+	private static String secretEncryption(String reqKey, String reqVal, byte[] secret) {	
 		try {
+			Encoder encoder = java.util.Base64.getEncoder();
 			skey = new SecretKeySpec(secret, "AES");    				
 			cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
 		    cipher.init(Cipher.ENCRYPT_MODE, skey);
 		    System.out.println("Symkey: " + new String(skey.getEncoded()));
-		    byte[] ct = cipher.doFinal(request.getBytes("UTF-8"));
-	    	Encoder encoder = java.util.Base64.getEncoder();
+		    
+		    String eKey = encoder.encodeToString(skey.getEncoded());
+		    OutputStream out = new FileOutputStream("src/main/resources/ab.key", true);
+		    Writer writer = new OutputStreamWriter(out);
+		    writer.append(reqKey + " = " + eKey + System.lineSeparator());
+		    writer.close();
+		    
+		    byte[] ct = cipher.doFinal(reqVal.getBytes("UTF-8"));
+	    	
 	    	String eVal = encoder.encodeToString(ct);
 		    return eVal;
 		} catch(Exception e){}
@@ -71,7 +79,7 @@ public class ABEncryption {
 			    	is.close();
 			    	Decoder decoder = java.util.Base64.getDecoder();
 			    	secret = decoder.decode(secBytes);
-			    	cVal = valueEncryption(value, secret);
+			    	cVal = secretEncryption(key, value, secret);
 			    } else {
 			    	cVal = value;
 			    }			    

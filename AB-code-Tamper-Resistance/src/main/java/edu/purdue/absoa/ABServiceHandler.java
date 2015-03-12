@@ -23,11 +23,16 @@ public class ABServiceHandler implements ABService.Iface {
 
 	public ABServiceHandler() {
 		abData = new HashMap<String, String>();
-		InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream("ab.cipher");
-		ABParser parser = new ABParser(is);
-		abData = new HashMap<String, String>(parser.processLineByLine());
-		ABIntegrity.initialize();
-		abv = new ABVerification();
+		try {
+			InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream("ab.cipher");
+			ABParser parser = new ABParser(is);
+			abData = new HashMap<String, String>(parser.processLineByLine());
+			is.close();
+			ABIntegrity.initialize();
+			abv = new ABVerification();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public String getValue(String request, String signature, String certificate) throws TException {
@@ -70,11 +75,6 @@ public class ABServiceHandler implements ABService.Iface {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-	}
-	
-	public static void setABData(String abkey, String abvalue)
-	{
-		abData.put(abkey, abvalue);
 	}
 
 	public static String getABData(String abkey)
