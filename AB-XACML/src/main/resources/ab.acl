@@ -1,6 +1,6 @@
-ab.user.name = 1, 2, 3
-ab.user.shipping.address = 1, 2, 3
-ab.user.creditcard = 1
+ab.user.name = 0
+ab.user.shipping.address = 1 
 ab.user.payment.type = 2
-ab.user.shipping.preference = 3
-ab.user.email = 1, 2, 3
+ab.user.shipping.preference = 3 
+ab.user.email = 4
+ab.user.creditcard = 5

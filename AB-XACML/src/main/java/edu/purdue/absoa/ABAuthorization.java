@@ -56,7 +56,7 @@ public class ABAuthorization {
 				}
 			}
 		} catch(Exception e) {
-			System.out.println("AB AZ authorization exception: " + e);
+			e.printStackTrace();
 		}		
 		return result;
 	}
