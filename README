@@ -21,3 +21,14 @@ thrift -out . --gen js:node ActiveBundle.thrift
 mvn clean install
 mvn eclipse:eclipse
 # import in eclipse to run
+
+## Experiments
+
+#1 AB-service interaction
+- different AB implementations
+- different AB policies
+- different VMs
+# assume AB is already started
+- start AB
+- start service
+- send requests using apache bench
