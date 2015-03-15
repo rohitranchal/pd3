@@ -20,6 +20,7 @@ public class ABAuthorization {
 		HashMap<String, String> sMap;
 		for(int i=0;;i++) {
 			is = Thread.currentThread().getContextClassLoader().getResourceAsStream("policy/policy-" + i);
+			ABIntegrity.checkIntegrity("policy/policy-" + i, "file");
 			if (is != null) {
 				authSubjects.add(i, new HashMap<String, List<String>>());
 				parser = new ABParser(is);
@@ -30,10 +31,11 @@ public class ABAuthorization {
 				    String[] valList = value.split("\\s*,\\s*");
 				    authSubjects.get(i).put(key, Arrays.asList(valList));
 				}
+				ABIntegrity.checkIntegrity("edu.purdue.absoa.ABParser", "class");
 			} else {
 				break;
 			}
-		}
+		}		
 	}
 	
 	public boolean authorize(String request, byte[] certificate) {
@@ -41,21 +43,17 @@ public class ABAuthorization {
 			InputStream bis = new ByteArrayInputStream(certificate);
 			CertificateFactory certFactory = CertificateFactory.getInstance("X.509");
 			X509Certificate cert = (X509Certificate)certFactory.generateCertificate(bis);
-			bis.close();
-
+			bis.close();			
 			String sub = cert.getSubjectX500Principal().getName().split(",")[0].split("=")[1];
 			for(int i=0; i<authSubjects.size(); i++) {				
-				if (authSubjects.get(i).get(request).contains(sub) ) {
-					ABIntegrity.checkIntegrity("request", "string");
-					ABIntegrity.checkIntegrity("policy/policy-" + i, "file");
-					ABIntegrity.checkIntegrity("edu.purdue.ABParser", "class");
+				if (authSubjects.get(i).get(request).contains(sub) ) {										
 					return true;
 				}
 			}
+			ABIntegrity.checkIntegrity("request", "string");
 		} catch(Exception e) {
-			System.out.println("AB AZ authorization exception: " + e);
-		}
-		
+			e.printStackTrace();
+		}		
 		return false;
 	}
 }

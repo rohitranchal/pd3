@@ -20,9 +20,9 @@ public class ABAuthentication {
 			byte[] pkBytes = new byte[is.available()];
 		    is.read(pkBytes);
 		    is.close();
-		    Decoder decoder = java.util.Base64.getDecoder();
-	    	byte[] pkb = decoder.decode(pkBytes);
 		    ABIntegrity.checkIntegrity("CA_PK", "file");
+		    Decoder decoder = java.util.Base64.getDecoder();
+	    	byte[] pkb = decoder.decode(pkBytes);		    
 		    X509EncodedKeySpec pkSpec = new X509EncodedKeySpec(pkb);
 		    KeyFactory factory = KeyFactory.getInstance("RSA");
 		    pubKey = (PublicKey)factory.generatePublic(pkSpec);
@@ -46,7 +46,6 @@ public class ABAuthentication {
 			verifySign.update(request.getBytes("UTF-8"));
 			return verifySign.verify(signature);
 		} catch(Exception e) {
-			System.out.println("AB AU: " + e);
 			e.printStackTrace();
 		}
 		return false;
