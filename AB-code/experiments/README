@@ -1,0 +1,31 @@
+Amazon EC2 C3 instances
+
+Test: AB-Service interaction (query)
+(5 runs, each run with 50 reqs)
+
+AB-Code
+
+1 Policy
+EC2 Large      - 
+XLarge         - 
+XXLarge        - 
+
+2 Policies
+EC2 Large      - 
+XLarge         - 
+XXLarge        - 
+
+4 Policies
+EC2 Large      - 
+XLarge         - 
+XXLarge        - 
+
+8 Policies
+EC2 Large      - 
+XLarge         - 
+XXLarge        - 
+
+16 Policies
+EC2 Large      - 
+XLarge         - 
+XXLarge        - 

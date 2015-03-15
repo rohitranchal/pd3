@@ -13,7 +13,7 @@ var ab_lib = 'resources/lib';
 var ab_arg = ab_path + ':./' + ab_lib + '/*:.';
 var ab_class = 'edu.purdue.absoa.Server';
 var ab_port = 5555;
-var req_data = 'ab.user.email';
+var req_data = 'ab.user.creditcard';
 
 /* GET home page. */
 router.get('/', function(req, res) {
@@ -26,6 +26,12 @@ router.get('/test', function(req, res) {
 			console.log('AB data: ' + data);
 			res.send(data);
 		});
+	});
+});
+
+router.get('/test/query', function(req, res) {
+	ab_client.get_data(req_data, ab_port, function(ab_data) {
+		res.send(ab_data);
 	});
 });
 
