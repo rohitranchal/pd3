@@ -1,0 +1,35 @@
+1. Start AB using start_ab script (start_ab <ab_file>)
+2. Start Service in scenario/sample
+3. Start apache bench test (test)
+
+Amazon EC2 C3 instances
+
+Test: AB-Service interaction (query)
+(5 runs, each run with 50 reqs)
+
+AB-Code-Tamper-Resistance
+
+1 Policy
+EC2 Large      -  =
+XLarge         -  =
+XXLarge        -  =
+
+2 Policies
+EC2 Large      -  =
+XLarge         -  =
+XXLarge        -  =
+
+4 Policies
+EC2 Large      -  =
+XLarge         -  =
+XXLarge        -  =
+
+8 Policies
+EC2 Large      -  =
+XLarge         -  =
+XXLarge        -  =
+
+16 Policies
+EC2 Large      -  =
+XLarge         -  =
+XXLarge        -  =

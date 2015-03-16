@@ -1,3 +1,7 @@
+1. Start AB using start_ab script (start_ab <ab_file>)
+2. Start Service in scenario/sample
+3. Start apache bench test (test)
+
 Amazon EC2 C3 instances
 
 Test: AB-Service interaction (query)
@@ -6,26 +10,26 @@ Test: AB-Service interaction (query)
 AB-Code
 
 1 Policy
-EC2 Large      - 
-XLarge         - 
-XXLarge        - 
+EC2 Large      - 4.411 + 4.380 + 4.334 + 4.436 + 4.414 =
+XLarge         - 3.987 + 3.931 + 3.981 + 3.951 + 3.966 =
+XXLarge        - 3.871 + 4.044 + 4.132 + 4.079 + 4.055 =
 
 2 Policies
-EC2 Large      - 
-XLarge         - 
-XXLarge        - 
+EC2 Large      - 4.467 + 4.396 + 4.531 + 4.348 + 4.533 =
+XLarge         - 4.011 + 3.888 + 4.006 + 3.941 + 4.015 =
+XXLarge        - 3.966 + 4.265 + 4.088 + 4.144 + 3.932 =
 
 4 Policies
-EC2 Large      - 
-XLarge         - 
-XXLarge        - 
+EC2 Large      - 4.452 + 4.482 + 4.350 + 4.376 + 4.524 =
+XLarge         - 3.962 + 3.960 + 3.829 + 3.987 + 3.956 =
+XXLarge        - 4.128 + 3.982 + 3.942 + 4.162 + 3.949 =
 
 8 Policies
-EC2 Large      - 
-XLarge         - 
-XXLarge        - 
+EC2 Large      - 4.417 + 4.415 + 4.493 + 4.446 + 4.461 =
+XLarge         - 3.964 + 4.000 + 3.946 + 3.973 + 3.995 =
+XXLarge        - 3.932 + 3.940 + 3.892 + 3.931 + 4.115 =
 
 16 Policies
-EC2 Large      - 
-XLarge         - 
-XXLarge        - 
+EC2 Large      - 4.523 + 4.402 + 4.398 + 4.348 + 4.461 =
+XLarge         - 4.000 + 4.028 + 3.986 + 3.987 + 4.007 =
+XXLarge        - 4.218 + 3.862 + 4.203 + 4.105 + 4.239 =
