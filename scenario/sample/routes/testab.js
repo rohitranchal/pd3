@@ -38,7 +38,6 @@ router.get('/test', function(req, res) {
 	}
 	var currentpid = pid_array[myid]
 	var currentport = port_array[myid]
-	console.log(port_array[myid])
 
 	connect_ab(currentport, ab_host, currentpid, function(data) {
 			console.log('AB data: ' + data);
