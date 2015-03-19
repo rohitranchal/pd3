@@ -1,4 +1,4 @@
-if [ "$#" -ne 1 ]; then
+if [ "$#" -ne 2 ]; then
 	echo "Usage: ./STARTAB <AB file name> <number of AB process>"
 	exit 2  		
 fi
