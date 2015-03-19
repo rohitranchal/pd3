@@ -36,13 +36,15 @@ router.get('/test', function(req, res) {
 	else{
 		currentAB = 0;
 	}
-	var currentpid = pid_array[myid]
 	var currentport = port_array[myid]
 
-	connect_ab(currentport, ab_host, currentpid, function(data) {
-			console.log('AB data: ' + data);
-			res.send(data);
-	});
+	ab_client.get_data(req_data, currentport, function(ab_data) {
+		res.send(ab_data);
+	})
+
+//	connect_ab(currentport, ab_host, currentpid, function(data) {
+//			res.send(data);
+//	});
 });
 
 // Command that starts AB
