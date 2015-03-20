@@ -10,21 +10,21 @@ Test: AB-Service interaction (query)
 AB-Code-Tamper-Resistance
 
 1 Policy
-EC2 Large      - 8.144 + 8.730 + 8.711 + 11.507 + 9.965 =
+EC2 Large      - 7.901 + 10.252 + 11.117 + 9.196 + 10.861 =
 XLarge         -  =
 
 2 Policies
-EC2 Large      - 8.057 + 8.630 + 9.036 + 11.192 + 10.060 =
+EC2 Large      - 7.624 + 10.200 + 12.013 + 8.579 + 10.633  =
 XLarge         -  =
 
 4 Policies
-EC2 Large      - 8.466 + 8.364 + 8.965 + 10.835 + 10.068 =
+EC2 Large      - 7.539 + 9.820 + 10.766 + 9.272 + 10.287 =
 XLarge         -  =
 
 8 Policies
-EC2 Large      - 7.883 + 8.327 + 8.701 + 11.117 + 8.962 =
+EC2 Large      - 7.346 + 10.901 + 11.495 + 10.155 + 9.784 =
 XLarge         -  =
 
 16 Policies
-EC2 Large      - 7.918 + 8.825 + 8.015 + 11.732 + 10.245 =
+EC2 Large      - 7.919 + 10.896 + 11.298 + 10.870 + 10.891 =
 XLarge         -  =
