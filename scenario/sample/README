@@ -1,3 +1,5 @@
+Before testing, remember to copy all the AB jars as well as the lib/ directory to resource/
+
 Stat the node server:
 	./START
 
