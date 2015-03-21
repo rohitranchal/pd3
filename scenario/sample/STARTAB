@@ -1,0 +1,5 @@
+if [ "$#" -ne 2 ]; then
+	echo "Usage: ./STARTAB <AB file name> <number of AB process>"
+	exit 2  		
+fi
+curl "http://localhost:3000/startab/$1/$2"

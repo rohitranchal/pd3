@@ -1,0 +1,5 @@
+if [ "$#" -ne 2 ]; then
+	echo "Usage: ./TESTAB <number of requests> <level of concurrency>"
+	exit 2  		
+fi
+ab -n $1 -c $2 http://localhost:3000/test

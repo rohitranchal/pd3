@@ -1,0 +1,13 @@
+Before testing, remember to copy all the AB jars as well as the lib/ directory to resource/
+
+Stat the node server:
+	./START
+
+Start the AB processs through AB server:
+	./STARTAB <AB file name> <number of process>
+
+Send AB requests:
+	./TESTAB <number of requests> <level of concurrency>
+
+Stop AB processes:
+	./STOPAB
