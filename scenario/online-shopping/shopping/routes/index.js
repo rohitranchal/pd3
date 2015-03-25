@@ -6,7 +6,8 @@ var spawn = require('child_process').spawn;
 var async = require('async');
 var portscanner = require('portscanner');
 var ab_client = require('../ab_client');
-var db = require('../db');
+//var db = require('../db');
+var fs = require('fs');
 
 var ab_host = '127.0.0.1';
 var ab_path = 'resources/AB-New.jar';
@@ -17,7 +18,9 @@ router.get('/', function(req, res) {
 	res.send('Shopping Service');
 });
 
+/*
 router.get('/order', function(req, res) {
+
 	request('http://localhost:4102/submit_order', function (error, response, body1) {
 		var msg;
 		if (body1.search('failed') != -1) {
@@ -45,10 +48,20 @@ router.get('/order', function(req, res) {
 	// diplay data on console
 	// send request to seller
 });
+*/
 
 router.get('/ab_order', function(req, res) {
 	var ab_data = null;
 	var msg;
+
+	var buf = fs.readFileSync(ab_path);
+	var abfileStr = buf.toString('base64');
+
+
+	var formData = {
+	  my_file: fs.createReadStream(ab_path)
+	}
+
 
 	async.parallel([
 		function(callback) {
@@ -60,21 +73,25 @@ router.get('/ab_order', function(req, res) {
 			});			
 		},
 		function(callback) {
-			request('http://localhost:4102/ab_submit_order', function (error, response, body1) {
+			request.post({url:'http://localhost:4102/ab_submit_order',formData: formData}, function (error, response, body1) {
 				if (body1.search('failed') != -1) {
 					msg = 'Order failed - ' + body1;
 					callback(null);
 				} else {
-					request('http://localhost:4104/ab_pay', function (error, response, body2) {
+					var newFormData = {
+	  					my_file: fs.createReadStream(ab_path)
+					}
+					request.post({url:'http://localhost:4104/ab_pay',formData: newFormData}, function (error, response, body2) {
 						if (body2.search('failed') != -1) {
 							msg = 'Order failed - ' + body2;
 						} else {
 							msg = 'Order complete details - ' + body1;
+							console.log(msg)
 						}
 						callback(null);
 					});
 				}
-			});		
+			})
 		}
 	],
 	function(err, results) {
@@ -85,7 +102,7 @@ router.get('/ab_order', function(req, res) {
 			res.send(msg);
 		}
 		var obj = {id:1, log:msg};
-		db.set_service_log(obj, function() {});
+		//db.set_service_log(obj, function() {});
 	});
 });
 

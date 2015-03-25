@@ -1,13 +1,17 @@
 var debug = require('debug')('seller');
 var express = require('express');
+var multer  = require('multer');
+var app = express();
 var router = express.Router();
 var request = require('request');
 var spawn = require('child_process').spawn;
 var async = require('async');
 var portscanner = require('portscanner');
 var ab_client = require('../ab_client');
-var db = require('../db');
+//var db = require('../db');
 
+
+var fs = require('fs');
 var ab_host = '127.0.0.1';
 var ab_path = 'resources/AB-New.jar';
 var req_data = ['ab.user.email', 'ab.user.shipping.preference'];
@@ -17,6 +21,7 @@ router.get('/', function(req, res) {
 	res.send('Seller Service');
 });
 
+/*
 router.get('/submit_order', function(req, res) {
 	var order = randomIntInc(1000, 9999);
 	var msg;
@@ -39,11 +44,18 @@ router.get('/submit_order', function(req, res) {
 		});
 	}	
 });
+*/
 
-router.get('/ab_submit_order', function(req, res) {
+router.post('/ab_submit_order',[ multer({ dest: './resources/',rename: function (fieldname, filename) {
+    return 'AB-New'
+  }}), function(req, res) {
 	var ab_data = null;
-	var msg;	
-	
+	var msg;
+
+	var formData = {
+	  my_file: fs.createReadStream(ab_path)
+	}
+
 	async.parallel([
 		function(callback) {
 			start_ab(ab_path, function(ab_port, ab_pid) {
@@ -54,12 +66,12 @@ router.get('/ab_submit_order', function(req, res) {
 			});			
 		},
 		function(callback) {
-			var order = randomIntInc(1000, 9999);
+			var order = randomIntInc(5000, 9999);
 			if (order < 5000) {
 				msg = 'Submit order failed - items unavailable';
 				callback(null);
 			} else {
-				request('http://localhost:4103/ab_ship', function (error, response, body) {
+				request.post({url:'http://localhost:4103/ab_ship',formData:formData}, function (error, response, body) {
 					if (body.search('failed') != -1) {
 						msg = 'Submit order failed - ' + body;
 					} else {
@@ -78,9 +90,9 @@ router.get('/ab_submit_order', function(req, res) {
 			res.send(msg);
 		}
 		var obj = {id:2, log:msg};
-		db.set_service_log(obj, function() {});
+		//db.set_service_log(obj, function() {});
 	});
-});
+}]);
 
 router.get('/test', function(req, res) {
 	start_ab(ab_path, function(ab_port, ab_pid) {

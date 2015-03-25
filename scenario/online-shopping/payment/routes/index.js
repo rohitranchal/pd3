@@ -1,12 +1,13 @@
 var debug = require('debug')('payment');
 var express = require('express');
+var multer  = require('multer');
 var router = express.Router();
 var request = require('request');
 var spawn = require('child_process').spawn;
 var async = require('async');
 var portscanner = require('portscanner');
 var ab_client = require('../ab_client');
-var db = require('../db');
+//var db = require('../db');
 
 var ab_host = '127.0.0.1';
 var ab_path = 'resources/AB-New.jar';
@@ -17,6 +18,7 @@ router.get('/', function(req, res) {
 	res.send('Payment Service');
 });
 
+/*
 router.get('/pay', function(req, res) {
 	//get payment details from AB
 	var payment = randomIntInc(0, 1);
@@ -31,11 +33,15 @@ router.get('/pay', function(req, res) {
 	var obj = {id:4, log:msg};
 	db.set_service_log(obj, function() {});
 });
+*/
 
-router.get('/ab_pay', function(req, res) {
+router.post('/ab_pay',[ multer({ dest: './resources/',rename: function (fieldname, filename) {
+    return 'AB-New'
+  }}), function(req, res) {
+	console.log(req.files.file)
 	var ab_data = null;
 	var msg;
-	var payment = randomIntInc(0, 1);
+	var payment = 1//randomIntInc(0, 1);
 	if(payment) {
 		msg = 'Payment done';
 	} else {
@@ -51,10 +57,10 @@ router.get('/ab_pay', function(req, res) {
 				res.send(msg);
 			}
 			var obj = {id:4, log:msg};
-			db.set_service_log(obj, function() {});
+			//db.set_service_log(obj, function() {});
 		});
 	});		
-});
+}]);
 
 router.get('/test', function(req, res) {
 	start_ab(ab_path, function(ab_port, ab_pid) {

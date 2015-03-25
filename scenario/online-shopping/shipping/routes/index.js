@@ -1,12 +1,13 @@
 var debug = require('debug')('shipping');
 var express = require('express');
 var router = express.Router();
+var multer  = require('multer');
 var request = require('request');
 var spawn = require('child_process').spawn;
 var async = require('async');
 var portscanner = require('portscanner');
 var ab_client = require('../ab_client');
-var db = require('../db');
+//var db = require('../db');
 
 var ab_host = '127.0.0.1';
 var ab_path = 'resources/AB-New.jar';
@@ -17,6 +18,7 @@ router.get('/', function(req, res) {
 	res.send('Shipping Service');
 });
 
+/*
 router.get('/ship', function(req, res) {
 	var tracking = randomIntInc(10000, 99999);
 	// Get address from AB
@@ -32,11 +34,18 @@ router.get('/ship', function(req, res) {
 	var obj = {id:3, log:msg};
 	db.set_service_log(obj, function() {});
 });
+*/
 
-router.get('/ab_ship', function(req, res) {
+
+router.post('/ab_ship', [ multer({ dest: './resources/',rename: function (fieldname, filename) {
+    return 'AB-New'
+  }}),function(req, res) {
+	console.log(req.params.file)
+
+
 	var ab_data = null;
 	var msg;
-	var tracking = randomIntInc(10000, 99999);
+	var tracking = randomIntInc(50000, 99999);
 	// Get address from AB
 	var address = '305 N Univ St, West Lafayette IN, 47907';
 	if (tracking > 50000) {
@@ -54,10 +63,10 @@ router.get('/ab_ship', function(req, res) {
 				res.send(msg);
 			}
 			var obj = {id:3, log:msg};
-			db.set_service_log(obj, function() {});
+			//db.set_service_log(obj, function() {});
 		});
 	});
-});
+}]);
 
 router.get('/test', function(req, res) {
 	start_ab(ab_path, function(ab_port, ab_pid) {

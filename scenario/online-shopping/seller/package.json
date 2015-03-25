@@ -17,6 +17,7 @@
     "portscanner": "^1.0.0",
     "request": "^2.51.0",
     "static-favicon": "~1.0.0",
-    "thrift": "^0.9.2"
+    "thrift": "^0.9.2",
+		"multer":"0.1.8"
   }
 }
