@@ -14,7 +14,7 @@ var ab_client = require('../ab_client');
 var fs = require('fs');
 var ab_host = '127.0.0.1';
 var ab_path = 'resources/AB-New.jar';
-var req_data = ['ab.user.email', 'ab.user.shipping.preference'];
+var req_data = ['ab.user.shipping.preference'];
 
 /* GET home page. */
 router.get('/', function(req, res) {
