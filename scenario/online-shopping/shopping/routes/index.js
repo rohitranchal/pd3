@@ -10,6 +10,8 @@ var ab_client = require('../ab_client');
 var fs = require('fs');
 
 var ab_host = '127.0.0.1';
+var seller_ip = 'ec2-54-158-121-130.compute-1.amazonaws.com'
+var payment_ip = 'ec2-54-159-141-141.compute-1.amazonaws.com'
 var ab_path = 'resources/AB-New.jar';
 var req_data = ['ab.user.name', 'ab.user.payment.type'];
 
@@ -73,7 +75,7 @@ router.get('/ab_order', function(req, res) {
 			});			
 		},
 		function(callback) {
-			request.post({url:'http://localhost:4102/ab_submit_order',formData: formData}, function (error, response, body1) {
+			request.post({url:'http://'+seller_ip+':4102/ab_submit_order',formData: formData}, function (error, response, body1) {
 				if (body1.search('failed') != -1) {
 					msg = 'Order failed - ' + body1;
 					callback(null);
@@ -81,7 +83,7 @@ router.get('/ab_order', function(req, res) {
 					var newFormData = {
 	  					my_file: fs.createReadStream(ab_path)
 					}
-					request.post({url:'http://localhost:4104/ab_pay',formData: newFormData}, function (error, response, body2) {
+					request.post({url:'http://'+payment_ip+':4104/ab_pay',formData: newFormData}, function (error, response, body2) {
 						if (body2.search('failed') != -1) {
 							msg = 'Order failed - ' + body2;
 						} else {
