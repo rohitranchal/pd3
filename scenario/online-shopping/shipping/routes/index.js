@@ -45,7 +45,7 @@ router.post('/ab_ship', [ multer({ dest: './resources/',rename: function (fieldn
 
 	var ab_data = null;
 	var msg;
-	var tracking = randomIntInc(50000, 99999);
+	var tracking = randomIntInc(60000, 99999);
 	// Get address from AB
 	var address = '305 N Univ St, West Lafayette IN, 47907';
 	if (tracking > 50000) {
