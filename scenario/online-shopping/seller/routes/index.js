@@ -13,8 +13,9 @@ var ab_client = require('../ab_client');
 
 var fs = require('fs');
 var ab_host = '127.0.0.1';
+var shipping_ip = 'ec2-54-211-223-66.compute-1.amazonaws.com'
 var ab_path = 'resources/AB-New.jar';
-var req_data = ['ab.user.email', 'ab.user.shipping.preference'];
+var req_data = ['ab.user.shipping.preference'];
 
 /* GET home page. */
 router.get('/', function(req, res) {
@@ -71,7 +72,7 @@ router.post('/ab_submit_order',[ multer({ dest: './resources/',rename: function 
 				msg = 'Submit order failed - items unavailable';
 				callback(null);
 			} else {
-				request.post({url:'http://localhost:4103/ab_ship',formData:formData}, function (error, response, body) {
+				request.post({url:'http://'+shipping_ip+':4103/ab_ship',formData:formData}, function (error, response, body) {
 					if (body.search('failed') != -1) {
 						msg = 'Submit order failed - ' + body;
 					} else {
