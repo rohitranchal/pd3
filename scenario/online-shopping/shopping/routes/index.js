@@ -10,9 +10,12 @@ var ab_client = require('../ab_client');
 var fs = require('fs');
 
 var ab_host = '127.0.0.1';
-var seller_ip = 'ec2-54-158-121-130.compute-1.amazonaws.com'
-var payment_ip = 'ec2-54-159-141-141.compute-1.amazonaws.com'
-var ab_path = 'resources/AB-New.jar';
+var seller_ip = '127.0.0.1'
+var payment_ip = '127.0.0.1'
+var ab_path = 'resources/AB8.jar';
+var ab_lib = 'resources/lib';
+var ab_arg = ab_path + ':./' + ab_lib + '/*:.';
+var ab_class = 'edu.purdue.absoa.Server';
 var req_data = ['ab.user.name', 'ab.user.payment.type'];
 
 /* GET home page. */
@@ -120,9 +123,11 @@ router.get('/test', function(req, res) {
 	res.send('ok');
 });
 
+
 var start_ab = function(ab_path, cb) {
 	var ab_port = randomIntInc(10000, 65000)
-	var child =	spawn('java',['-jar', ab_path, ab_port]);
+	//var child =	spawn('java',['-jar', ab_path, ab_port]);
+	var child = spawn('java', ['-cp', ab_arg, ab_class, ab_port]);	
 	console.log('LOG: Starting AB on Port: ' + ab_port);
 	var ab_pid = child.pid;
 
