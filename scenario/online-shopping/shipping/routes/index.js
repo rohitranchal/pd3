@@ -14,7 +14,7 @@ var ab_path = 'resources/AB-New.jar';
 var ab_lib = 'resources/lib';
 var ab_arg = ab_path + ':./' + ab_lib + '/*:.';
 var ab_class = 'edu.purdue.absoa.Server';
-var req_data = ['ab.user.shipping.address'];
+var req_data = 'ab.user.shipping.address';
 
 /* GET home page. */
 router.get('/', function(req, res) {

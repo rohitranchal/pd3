@@ -17,6 +17,7 @@ var ab_lib = 'resources/lib';
 var ab_arg = ab_path + ':./' + ab_lib + '/*:.';
 var ab_class = 'edu.purdue.absoa.Server';
 var req_data = ['ab.user.name', 'ab.user.payment.type'];
+//var req_data = 'ab.user.name'
 
 /* GET home page. */
 router.get('/', function(req, res) {
@@ -162,10 +163,16 @@ var connect_ab = function(port, host, pid, cb) {
 		},
 		function (err) {
 			// AB is running, query the AB for data
-			ab_client.get_data(req_data, port, function(ab_data) {
+			ret_data = []
+			ab_client.get_data(req_data[0], port, function(ab_data) {
 				console.log('abdata: ' + ab_data);
-				process.kill(pid);
-				cb(ab_data);
+				ret_data.push(ab_data)
+				ab_client.get_data(req_data[1], port, function(ab_data) {
+					console.log('abdata: ' + ab_data);
+					process.kill(pid);
+					ret_data.push(ab_data)
+					cb(ab_data);
+				});
 			});
 	});
 };
