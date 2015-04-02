@@ -2,6 +2,7 @@ package edu.purdue.absoa;
 
 import java.io.InputStream;
 import java.security.MessageDigest;
+import java.util.Base64.Encoder;
 
 import javassist.ClassPool;
 import javassist.CtClass;
@@ -18,10 +19,12 @@ public class ABIntegrity {
 			CtClass initClass = classPool.get("edu.purdue.absoa.Server");
 		    md.update(initClass.toBytecode());
 			aggregate = md.digest();
-		} catch (Exception e){}
+		} catch (Exception e){
+			e.printStackTrace();
+		}
 	}
 	
-	public static byte[] checkIntegrity(String input, String type) {		
+	public static byte[] checkIntegrity(String input, String type) {
 		try {
 			if (type.equals("class")) {
 				CtClass cls = classPool.get(input);				
@@ -39,9 +42,11 @@ public class ABIntegrity {
 
 			for (int i = 0; i < aggregate.length; i++) {
 	    	    aggregate[i] += digest[i];
-			}	    
-			return digest;
-		} catch (Exception e){}
+			}
+			return aggregate;
+		} catch (Exception e){
+			e.printStackTrace();
+		}
 		return null;
 	}
 }

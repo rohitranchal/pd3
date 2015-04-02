@@ -19,8 +19,8 @@ public class ABAuthorization {
 		HashMap<String, String> sMap;
 
 		is = Thread.currentThread().getContextClassLoader().getResourceAsStream("ab.acl");
-		ABIntegrity.checkIntegrity("ab.acl", "file");
 		if (is != null) {
+			ABIntegrity.checkIntegrity("ab.acl", "file");
 			parser = new ABParser(is);
 			sMap = parser.processLineByLine();
 			for (HashMap.Entry<String, String> entry : sMap.entrySet()) {

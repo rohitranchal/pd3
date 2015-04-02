@@ -24,7 +24,9 @@ public class ABParser
 				processLine(scanner.nextLine());
 			}
 			return data;
-		} catch(Exception e) {}
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
 		return null;
 	}
 

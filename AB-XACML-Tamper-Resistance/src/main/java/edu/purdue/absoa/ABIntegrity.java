@@ -18,7 +18,9 @@ public class ABIntegrity {
 			CtClass initClass = classPool.get("edu.purdue.absoa.Server");
 		    md.update(initClass.toBytecode());
 			aggregate = md.digest();
-		} catch (Exception e){}
+		} catch (Exception e){
+			e.printStackTrace();
+		}
 	}
 	
 	public static byte[] checkIntegrity(String input, String type) {		
@@ -40,8 +42,10 @@ public class ABIntegrity {
 			for (int i = 0; i < aggregate.length; i++) {
 	    	    aggregate[i] += digest[i];
 			}	    
-			return digest;
-		} catch (Exception e){}
+			return aggregate;
+		} catch (Exception e){
+			e.printStackTrace();
+		}
 		return null;
 	}
 }

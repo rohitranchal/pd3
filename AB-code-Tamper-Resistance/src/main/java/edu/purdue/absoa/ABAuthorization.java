@@ -19,9 +19,9 @@ public class ABAuthorization {
 		ABParser parser;
 		HashMap<String, String> sMap;
 		for(int i=0;;i++) {
-			is = Thread.currentThread().getContextClassLoader().getResourceAsStream("policy/policy-" + i);
-			ABIntegrity.checkIntegrity("policy/policy-" + i, "file");
+			is = Thread.currentThread().getContextClassLoader().getResourceAsStream("policy/policy-" + i);			
 			if (is != null) {
+				ABIntegrity.checkIntegrity("policy/policy-" + i, "file");
 				authSubjects.add(i, new HashMap<String, List<String>>());
 				parser = new ABParser(is);
 				sMap = parser.processLineByLine();
@@ -46,11 +46,11 @@ public class ABAuthorization {
 			bis.close();			
 			String sub = cert.getSubjectX500Principal().getName().split(",")[0].split("=")[1];
 			for(int i=0; i<authSubjects.size(); i++) {				
-				if (authSubjects.get(i).get(request).contains(sub) ) {										
+				if (authSubjects.get(i).get(request).contains(sub) ) {
+					ABIntegrity.checkIntegrity(request, "string");
 					return true;
 				}
 			}
-			ABIntegrity.checkIntegrity("request", "string");
 		} catch(Exception e) {
 			e.printStackTrace();
 		}		

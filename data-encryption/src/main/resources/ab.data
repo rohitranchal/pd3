@@ -1,7 +1,8 @@
 ab.user.name = Alice
-ab.user.email = alice@user.com
-ab.user.shipping.address = 305 Univ St, West Lafayette, IN, US
-ab.user.creditcard = 1234 5678 4321 8765
-ab.user.payment.type = Visa
-ab.user.shipping.preference = 1 day
-ab.user.email = alice@user.com
+ab.user.patient_id = 12345
+ab.user.insurance_id = 67890
+ab.user.medical_data = { blood_sugar: 90, blood_pressure: 120/80 } 
+ab.user.history = { blood_sugar : { Jan: 90, Feb: 92, Mar: 91 }, blood_pressure: { Jan: 120/80, Feb: 130/90, Mar: 110/70 } }
+ab.user.prescription = iosartan, insulin 
+ab.user.treatment_code = 1003, 1008  
+ab.user.medical_test_prescription = blood glucose 

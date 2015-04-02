@@ -1,6 +1,8 @@
-ab.user.name = Service 1, Shopping, Seller, Shipping, Payment
-ab.user.shipping.address = Service 1, Shipping
-ab.user.creditcard = Service 1, Payment
-ab.user.payment.type = Service 1, Shopping
-ab.user.shipping.preference = Service 1, Seller
-ab.user.email = Service 1, Shopping
+ab.user.name = Service 1, Doctor 
+ab.user.patient_id = Service 1, Doctor, Insurance, Pharmacy, Laboratory
+ab.user.insurance_id = Service 1, Insurance
+ab.user.medical_data = Service 1, Doctor 
+ab.user.history = Service 1, Doctor
+ab.user.prescription = Service 1, Pharmacy 
+ab.user.treatment_code = Service 1, Insurance 
+ab.user.medical_test_prescription = Service 1, Laboratory
